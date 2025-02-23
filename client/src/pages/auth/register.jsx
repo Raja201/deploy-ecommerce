@@ -24,29 +24,29 @@ function AuthRegister() {
       if (data?.payload?.success) {
         toast({
           title: data?.payload?.message,
+          style: { background: "#E9F7EF", color: "#1B4332" }, // Success green
         });
         navigate("/auth/login");
       } else {
         toast({
           title: data?.payload?.message,
           variant: "destructive",
+          style: { background: "#FDE2E4", color: "#D72638" }, // Error red
         });
       }
     });
   }
 
-  console.log(formData);
-
   return (
-    <div className="mx-auto w-full max-w-md space-y-6">
+    <div className="mx-auto w-full max-w-md space-y-6 p-6 bg-[#FAF9F6] shadow-md rounded-lg border border-gray-300">
       <div className="text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">
-          Create new account
+        <h1 className="text-3xl font-extrabold tracking-tight text-[#333333]">
+          Create a new account
         </h1>
-        <p className="mt-2">
-          Already have an account
+        <p className="mt-2 text-sm text-gray-700">
+          Already have an account?{" "}
           <Link
-            className="font-medium ml-2 text-primary hover:underline"
+            className="font-medium text-[#023047] hover:text-[#03557D] focus:outline-none focus:ring-2 focus:ring-[#FFB703] focus:ring-offset-2"
             to="/auth/login"
           >
             Login
@@ -59,7 +59,24 @@ function AuthRegister() {
         formData={formData}
         setFormData={setFormData}
         onSubmit={onSubmit}
+        className="space-y-4"
       />
+      <div className="text-sm text-center text-gray-600">
+        By signing up, you agree to our{" "}
+        <Link
+          className="text-[#023047] hover:text-[#03557D] focus:outline-none focus:ring-2 focus:ring-[#FFB703] focus:ring-offset-2"
+          to="/terms"
+        >
+          Terms
+        </Link>{" "}
+        and{" "}
+        <Link
+          className="text-[#023047] hover:text-[#03557D] focus:outline-none focus:ring-2 focus:ring-[#FFB703] focus:ring-offset-2"
+          to="/privacy"
+        >
+          Privacy Policy
+        </Link>.
+      </div>
     </div>
   );
 }
