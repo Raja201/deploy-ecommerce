@@ -16,10 +16,10 @@ const shopReviewRouter = require("./routes/shop/review-routes");
 
 const commonFeatureRouter = require("./routes/common/feature-routes");
 
-//create a database connection -> u can also
-//create a separate file for this and then import/use that file here
+// Load environment variables
 dotenv.config();
 
+// Connect to MongoDB
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => console.log("MongoDB connected"))
@@ -28,9 +28,14 @@ mongoose
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// CORS Configuration
 app.use(
   cors({
-    origin: ["http://localhost:5173","https://deploy-ecommerce-lnsrxhca8-rajas-projects-f8ce6c03.vercel.app"],
+    origin: [
+      "http://localhost:5173",
+      "https://deploy-ecommerce-lnsrxhca8-rajas-projects-f8ce6c03.vercel.app",
+      "https://deploy-ecommerce-git-main-rajas-projects-f8ce6c03.vercel.app",
+    ],
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
@@ -43,8 +48,13 @@ app.use(
   })
 );
 
+// Handle preflight requests
+app.options("*", cors());
+
 app.use(cookieParser());
 app.use(express.json());
+
+// Define routes
 app.use("/api/auth", authRouter);
 app.use("/api/admin/products", adminProductsRouter);
 app.use("/api/admin/orders", adminOrderRouter);
@@ -58,4 +68,5 @@ app.use("/api/shop/review", shopReviewRouter);
 
 app.use("/api/common/feature", commonFeatureRouter);
 
+// Start the server
 app.listen(PORT, () => console.log(`Server is now running on port ${PORT}`));
