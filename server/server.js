@@ -35,9 +35,9 @@ app.use(
       "http://localhost:5173",
       "https://deploy-ecommerce-lnsrxhca8-rajas-projects-f8ce6c03.vercel.app",
       "https://deploy-ecommerce-git-main-rajas-projects-f8ce6c03.vercel.app",
-      "https://deploy-ecommerce-iota.vercel.app/",
+      "https://deploy-ecommerce-iota.vercel.app", // Removed trailing slash
     ],
-    methods: ["GET", "POST", "DELETE", "PUT"],
+    methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
     allowedHeaders: [
       "Content-Type",
       "Authorization",
@@ -50,7 +50,16 @@ app.use(
 );
 
 // Handle preflight requests
-app.options("*", cors());
+app.options("*", (req, res) => {
+  res.header("Access-Control-Allow-Origin", req.headers.origin);
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, Cache-Control, Expires, Pragma"
+  );
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.sendStatus(204);
+});
 
 app.use(cookieParser());
 app.use(express.json());
