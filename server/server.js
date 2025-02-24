@@ -35,6 +35,7 @@ app.use(
       "http://localhost:5173",
       "https://deploy-ecommerce-lnsrxhca8-rajas-projects-f8ce6c03.vercel.app",
       "https://deploy-ecommerce-git-main-rajas-projects-f8ce6c03.vercel.app",
+      "https://deploy-ecommerce-iota.vercel.app/",
     ],
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
